@@ -1,0 +1,30 @@
+# SPRING
+spring:
+
+  # APPLICATION
+  application:
+    name: SimpleUser
+
+  # DATABASE
+  datasource:
+    driver-class-name: ${DB_DRIVER}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+    url: ${DB_URL}
+
+  # JPA
+  jpa:
+    # HIBERNATE
+    hibernate:
+      ddl-auto: update # TODO: include liquibase
+    # PROPERTIES
+    properties:
+      hibernate.show_sql: true
+      hibernate.format_sql: true
+
+  # H2
+  h2:
+    # CONSOLE
+    console:
+      enabled: true
+      path: /h2
