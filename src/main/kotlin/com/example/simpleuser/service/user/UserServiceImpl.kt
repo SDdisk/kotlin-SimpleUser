@@ -2,19 +2,54 @@ package com.example.simpleuser.service.user
 
 import com.example.simpleuser.api.dto.user.UserRequestDto
 import com.example.simpleuser.api.dto.user.UserResponseDto
+import com.example.simpleuser.store.entity.user.Role
 import com.example.simpleuser.store.entity.user.User
 import com.example.simpleuser.store.repository.user.UserRepository
+import io.bloco.faker.Faker
+import jakarta.annotation.PostConstruct
 import org.slf4j.LoggerFactory
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.http.HttpStatus
+import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
 import org.springframework.web.server.ResponseStatusException
 import java.util.UUID
 
 @Service
 class UserServiceImpl(
-    private val userRepository: UserRepository
-) : UserService {
+    private val userRepository: UserRepository,
+    private val passwordEncoder: PasswordEncoder,
+    private val faker: Faker,
+): UserService {
+
+    @PostConstruct
+    private fun init() {
+        userRepository.save(
+            User(
+                email = "admin",
+                password = passwordEncoder.encode("admin"),
+                role = Role.ADMIN
+            )
+        )
+
+        userRepository.save(
+            User(
+                email = "user",
+                password = passwordEncoder.encode("user"),
+                role = Role.USER
+            )
+        )
+
+        for (i in 0..<25) {
+            userRepository.save(
+                User(
+                    email = faker.internet.email(),
+                    password = passwordEncoder.encode(faker.internet.password()),
+                    role = Role.USER
+                )
+            )
+        }
+    }
 
     override fun getUsers(): List<UserResponseDto> {
         log.info("Get users")
@@ -80,7 +115,8 @@ class UserServiceImpl(
     private fun UserRequestDto.toEntity() =
         User(
             email = this.email,
-            password = this.password,
+            password = passwordEncoder.encode(this.password),
+            role = Role.USER
         )
 
     // entity -> response

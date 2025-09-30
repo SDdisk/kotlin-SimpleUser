@@ -1,5 +1,8 @@
 # SPRING
 spring:
+  # MAIN
+  main:
+    banner-mode: off
 
   # APPLICATION
   application:
@@ -28,3 +31,14 @@ spring:
     console:
       enabled: true
       path: /h2
+
+  # SECURITY
+  security:
+    user:
+      name: ${SECURITY_USERNAME}
+      password: ${SECURITY_PASSWORD}
+
+# JWT
+jwt:
+  key: ${JWT_KEY}
+  expiration: ${JWT_EXPIRATION_MS}

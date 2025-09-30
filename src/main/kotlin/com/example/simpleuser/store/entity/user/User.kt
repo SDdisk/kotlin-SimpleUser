@@ -16,6 +16,7 @@ open class User(
     @NaturalId
     open var email: String = "",
     open var password: String = "",
+    open var role: Role = Role.USER,
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -25,5 +26,9 @@ open class User(
 
     override fun hashCode(): Int = email.hashCode()
 
-    override fun toString(): String = "User(id=$id, email=$email, password=$password)"
+    override fun toString(): String = "User(id=$id, email=$email, password=$password, role=$role)"
+}
+
+enum class Role {
+    USER, ADMIN
 }

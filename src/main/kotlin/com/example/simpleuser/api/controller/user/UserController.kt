@@ -3,7 +3,9 @@ package com.example.simpleuser.api.controller.user
 import com.example.simpleuser.api.dto.user.UserRequestDto
 import com.example.simpleuser.api.dto.user.UserResponseDto
 import com.example.simpleuser.service.user.UserService
+import com.example.simpleuser.store.entity.user.Role
 import org.springframework.http.HttpStatus
+import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
@@ -48,4 +50,15 @@ class UserController(
     @ResponseStatus(HttpStatus.NO_CONTENT)
     fun deleteById(@PathVariable email: String) =
         userService.deleteUserByEmail(email)
+
+
+    @GetMapping("/admin")
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    @PreAuthorize("hasRole('ADMIN')")
+    fun adminInfo(): Map<String, String> = mapOf(
+        "admin" to "best",
+        "rest" to "api",
+        "lol" to "kek",
+        "chebu" to "rek"
+    )
 }
