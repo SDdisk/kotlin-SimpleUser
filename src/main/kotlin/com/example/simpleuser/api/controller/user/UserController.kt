@@ -6,6 +6,8 @@ import com.example.simpleuser.service.user.UserService
 import com.example.simpleuser.store.entity.user.Role
 import org.springframework.http.HttpStatus
 import org.springframework.security.access.prepost.PreAuthorize
+import org.springframework.security.core.annotation.AuthenticationPrincipal
+import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
@@ -35,6 +37,11 @@ class UserController(
     @ResponseStatus(HttpStatus.OK)
     fun getByEmail(@PathVariable email: String): UserResponseDto =
         userService.getUserByEmail(email)
+
+    @GetMapping("/me")
+    @ResponseStatus(HttpStatus.OK)
+    fun getMe(@AuthenticationPrincipal currentUserDetails: UserDetails): UserResponseDto =
+        userService.getUserByEmail(currentUserDetails.username)
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
