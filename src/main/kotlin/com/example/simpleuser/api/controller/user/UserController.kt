@@ -3,7 +3,6 @@ package com.example.simpleuser.api.controller.user
 import com.example.simpleuser.api.dto.user.UserRequestDto
 import com.example.simpleuser.api.dto.user.UserResponseDto
 import com.example.simpleuser.service.user.UserService
-import com.example.simpleuser.store.entity.user.Role
 import org.springframework.http.HttpStatus
 import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.security.core.annotation.AuthenticationPrincipal
