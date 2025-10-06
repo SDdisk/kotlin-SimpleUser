@@ -14,7 +14,6 @@ import io.mockk.mockk
 import io.mockk.verify
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
-import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertNotNull
@@ -352,7 +351,6 @@ class UserServiceImplTest {
         @Test
         fun `should throw exception when user not exists`() {
             // given
-            val userId = UUID.randomUUID()
             val userEmail = "test@test.test"
 
             every { userRepository.findByEmail(userEmail) } returns null
