@@ -8,6 +8,7 @@ class SimpleUserApplicationTests {
 
     @Test
     fun contextLoads() {
+
     }
 
 }
